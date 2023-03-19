@@ -1,7 +1,7 @@
 {
   "build": {
     "type": "maven",
-    "goal": "./mvnw package"
+    "goal": "deploy"
   },
   "deploy": {
     "jarName": "target/quarkus-app/quarkus-run.jar"
