@@ -1,7 +1,11 @@
 {
   "apps": [
     {
-      "app_id": "app_d787334c-73c7-4ba8-9945-9e782caca2e7"
+      "app_id": "app_d787334c-73c7-4ba8-9945-9e782caca2e7",
+      "org_id": "orga_cb0e53f4-7106-4b95-8151-420719c46faa",
+      "deploy_url": "",
+      "name": "",
+      "alias": ""
     }
   ]
 }
