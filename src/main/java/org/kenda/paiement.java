@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@ServerEndpoint("/recherchelieu/{name}")
+@ServerEndpoint("/paiement/{name}")
 @ApplicationScoped
 public class paiement {
 
