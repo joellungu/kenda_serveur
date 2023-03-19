@@ -21,6 +21,8 @@ public class Course extends PanacheEntity {
     public String dates;
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     public String heureDepart;
+    @Column(columnDefinition = "integer default 1")
+    public double prix;
 
     public Long idArretDepart;
     public Long idArretArrive;
@@ -31,6 +33,9 @@ public class Course extends PanacheEntity {
     public String lieuArrive;
     public String provinceArrive;
     public String arretEnCour;
+    public int jourDepart;
+    public int nombreJours;
+
 
     @OneToOne(cascade = CascadeType.MERGE)
     //@JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -42,11 +47,12 @@ public class Course extends PanacheEntity {
     @OneToOne(cascade = CascadeType.MERGE)
     public Bus bus;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<Tronson> troncons;
+    //@OneToMany(cascade = CascadeType.ALL)
+    public String troncons;
     public int placeDisponible;
     public String reference;
     public short status;
+    public String lieuActuel;
     public Boolean terminer;
     //
 }

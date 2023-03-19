@@ -43,9 +43,7 @@ public class TicketController {
         if(entity == null) {
             throw new NotFoundException();
         }
-
-        // map all fields from the person parameter to the existing entity
-        //entity.name = person.name;
+        //
         entity.update(ticket);
         return entity;
     }

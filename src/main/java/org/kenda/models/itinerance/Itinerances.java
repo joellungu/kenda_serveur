@@ -4,19 +4,16 @@ package org.kenda.models.itinerance;
     Cette classe nous aide pour connaitre le prix
     selon les trajets pour éviter que le admin ce repète
  */
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.kenda.models.arrets.Arret;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.Entity;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Predicate;
 
 @ApplicationScoped
-public class Itinerance {
+public class Itinerances {
     List<String> l = new LinkedList<>();
 
     List<HashMap<String,Object>> listeArrets = new LinkedList<>();

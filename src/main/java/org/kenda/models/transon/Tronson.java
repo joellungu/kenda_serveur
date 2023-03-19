@@ -15,28 +15,28 @@ import java.util.List;
 @Entity
 public class Tronson extends PanacheEntity {
 
+    public Long idPartenaire;
 
-    public HashMap arretArrive;
+    public String nom;
 
-    public HashMap arretDepart;
+    public String aaProvince;
+    public String aaLieu;
+    @Column(columnDefinition = "integer default 1")
+    public double aaLatitude;
+    @Column(columnDefinition = "integer default 1")
+    public double aaLongitude;
+
+    public String adProvince;
+    public String adLieu;
+
+    @Column(columnDefinition = "float8 default 1")
+    public double adLatitude;
+    @Column(columnDefinition = "float8 default 1")
+    public double adLongitude;
+
+    @Column(columnDefinition = "integer default 1")
     public double prix;
     public boolean active;
-
-    public HashMap getArretArrive() {
-        return arretArrive;
-    }
-
-    public void setArretArrive(HashMap arretArrive) {
-        this.arretArrive = arretArrive;
-    }
-
-    public HashMap getArretDepart() {
-        return arretDepart;
-    }
-
-    public void setArretDepart(HashMap arretDepart) {
-        this.arretDepart = arretDepart;
-    }
 
     public double getPrix() {
         return prix;
