@@ -163,8 +163,9 @@ public class ItineranceController {
             Map<String, Object> params2 = new HashMap<>();
             params2.put("troncons",t.nom);
             params2.put("jourDepart",jour);
+            params2.put("idPartenaire",t.idPartenaire);
 
-            Course course = Course.find("troncons = :troncons and jourDepart = :jourDepart", params2).firstResult();
+            Course course = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).firstResult();
             if(course != null){
                 course.prix = t.prix;
                 l.add(course);

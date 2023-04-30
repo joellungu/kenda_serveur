@@ -17,25 +17,24 @@ import java.util.List;
 public class Ticket extends PanacheEntity {
     public Long idPartenaire;
     public Long idTronson;
-    //Arret Arriver
-    public String aaProvince;
-    public String aaLieu;
-    //Arret Depart
-    public String adProvince;
-    public String adLieu;
+    //
+    public int nombrepDePlace;
+    //Arret Arriver//
+    public String itinerance;
+    public String trajet;
+
     public String datePaiement;
 
     public String emplacement;
     public Boolean consomer;
     public double prix;
+    public String devise;
     //
     public String codePostal;
     public String phone;
     public int codeRecuperation;
-    public Boolean valider;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    public Timestamp dateDepart;
+    public String dateDepart;
+    public String heureDepart;
     //////////////////////////////////////////////////////////////////////////////////////////
 
     public static List<Ticket> findTicket(Long idPartenaire){
@@ -52,11 +51,6 @@ public class Ticket extends PanacheEntity {
 
             oldTicket.idTronson = ticket.idTronson;
             //Arret Arriver
-             oldTicket.aaProvince = ticket.aaProvince;
-             oldTicket.aaLieu = ticket.aaLieu;
-            //Arret Depart
-             oldTicket.adProvince = ticket.adProvince;
-             oldTicket.adLieu = ticket.adLieu;
              //
              oldTicket.emplacement = ticket.emplacement;
              oldTicket.consomer = ticket.consomer;
@@ -67,7 +61,6 @@ public class Ticket extends PanacheEntity {
              oldTicket.codePostal = ticket.codePostal;
              oldTicket.phone = ticket.phone;
              oldTicket.codeRecuperation = ticket.codeRecuperation;
-             oldTicket.valider = ticket.valider;
              //
             return Response.ok(oldTicket).build();
         }else{

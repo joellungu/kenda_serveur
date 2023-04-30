@@ -53,6 +53,7 @@ public class CourseController {
                                  @PathParam("idPartenaire") String lieuarrive,
                                  @PathParam("idPartenaire") String date) {
         List<Course> all = Course.listAll();
+        System.out.println("La taille: "+all.size());
         List<Course> resultat = new LinkedList<>();
         LocalDate compare = LocalDate.now();
         LocalDate dt1 = LocalDate.parse(date);
