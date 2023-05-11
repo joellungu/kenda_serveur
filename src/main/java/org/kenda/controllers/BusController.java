@@ -2,6 +2,7 @@ package org.kenda.controllers;
 
 import org.kenda.models.agents.Agent;
 import org.kenda.models.bus.Bus;
+import org.kenda.models.partenaires.Partenaire;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -15,17 +16,23 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class BusController {
 
-
     @GET
     @Path("all/{id}")
     public List<Bus> listAll(@PathParam("id") Long idPartenaire) {
-        return Bus.findBus(idPartenaire);
+
+        return Bus.list("idPartenaire",idPartenaire);
     }
 
     @GET
     @Path("/{id}")
     public Bus get(Long id) {
         return Bus.findById(id);
+    }
+
+    @GET
+    @Path("via/{id}")
+    public Bus getBusVia(Long id) {
+        return Bus.find("idPartenaire",id).firstResult();
     }
 
     @POST
@@ -39,15 +46,27 @@ public class BusController {
     @Path("/{id}")
     @Transactional
     public Bus update(@PathParam("id") Long id, Bus bus) {
-        Bus entity = Bus.findById(id);
-        if(entity == null) {
+        Bus bus1 = Bus.findById(id);
+        if(bus1 == null) {
             throw new NotFoundException();
         }
+        bus1.nom = bus.nom;
+        bus1.marque = bus.marque;
+        bus1.type = bus.type;
+        bus1.numeroChassis = bus.numeroChassis;
+        bus1.dateAchat = bus.dateAchat;
+        bus1.dateMiseenservice = bus.dateMiseenservice;
+        bus1.capacite = bus.capacite;
+        bus1.caracteristiques = bus.caracteristiques;
+        bus1.kilometrage = bus.kilometrage;
+        bus1.climatisation = bus.climatisation;
+        bus1.logo = bus.logo;
+
 
         // map all fields from the person parameter to the existing entity
         //entity.name = person.name;
-        entity.update(bus);
-        return entity;
+
+        return bus1;
     }
 
     @DELETE
@@ -59,5 +78,13 @@ public class BusController {
             throw new NotFoundException();
         }
         bus.delete();
+    }
+
+    @GET
+    @Path("bus.png")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public byte[] getBackground(@QueryParam("id") long id){
+        Bus bus = Bus.findById(id);
+        return bus.logo;
     }
 }

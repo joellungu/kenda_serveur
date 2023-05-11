@@ -94,4 +94,12 @@ public class PartenaireController {
         }
         partenaire.delete();
     }
+
+    @GET
+    @Path("profil.png")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public byte[] getBackground(@QueryParam("id") long id){
+        Partenaire partenaire = Partenaire.findById(id);
+        return partenaire.logo;
+    }
 }

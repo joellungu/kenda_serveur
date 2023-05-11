@@ -61,25 +61,25 @@ public class TicketController {
 
     }
 
-
     @POST
     @Transactional
-    public Response create(Ticket ticket) {
-        ticket.persist();
-        return Response.created(URI.create("/persons/" + ticket.id)).build();
+    public Response create(List<Ticket> tickets) {
+        tickets.forEach((ticket -> ticket.persist()));
+        return Response.ok(tickets).build();
     }
 
     @PUT
-    @Path("/{id}")
     @Transactional
-    public Ticket update(@PathParam("id") Long id, Ticket ticket) {
-        Ticket entity = Ticket.findById(id);
-        if(entity == null) {
-            throw new NotFoundException();
+    public Response update(Ticket ticket) {
+        Ticket ticket1 = Ticket.findById(ticket.id);
+        if(ticket1 == null) {
+            return Response.serverError().build();
         }
         //
-        entity.update(ticket);
-        return entity;
+        ticket1.status = ticket.status;
+        ticket1.idAgent = ticket.idAgent;
+        //entity.update(ticket);
+        return Response.ok(ticket1).build();
     }
 
     @DELETE

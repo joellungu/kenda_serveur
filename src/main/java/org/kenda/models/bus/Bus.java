@@ -26,39 +26,8 @@ public class Bus extends PanacheEntity {
     public String caracteristiques;
     public int kilometrage;
     public Boolean climatisation;
+    public byte[] logo;
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    public static List<Bus> findAllBus(){
-        return listAll();
-    }
 
-    public static List<Bus> findBus(Long idPartenaire){
-        return list("idPartenaire",idPartenaire);
-    }
-
-    public void update(Bus bus) {
-        if(bus.isPersistent()){
-            Bus oldBus = Bus.findById(bus.id);
-            if(oldBus != null){
-                /*
-                oldAgent.nom = agent.nom;
-                oldAgent.postnom = agent.postnom;
-                oldAgent.prenom = agent.prenom;
-                oldAgent.numero = agent.numero;
-                oldAgent.email = agent.email;
-                oldAgent.adresse = agent.adresse;
-                oldAgent.password = agent.password;
-                oldAgent.roletitre = agent.roletitre;
-                oldAgent.role = agent.role;
-                */
-                oldBus.update(bus);
-            }
-        }
-        //Agent.update("name = 'Mortal' where status = ?1", Status.Alive);
-        //update("",{});
-    }
-
-    public static void deleteBus(Long id){
-        deleteById(id);
-    }
 }
