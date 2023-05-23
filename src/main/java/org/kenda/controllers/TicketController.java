@@ -34,16 +34,20 @@ public class TicketController {
         return Ticket.findById(id);
     }
     @GET
-    @Path("horaire/{idPartenaire}/{dateDepart}")
+    @Path("horaire/{idPartenaire}/{dateDepart}/{status}")
     public Response getHoraire(@PathParam("idPartenaire") Long idPartenaire,
-                             @PathParam("dateDepart") String dateDepart) {
+                             @PathParam("dateDepart") String dateDepart,
+                               @PathParam("status") int status) {
         //
         Map<String, Object> params = new HashMap<>();
-        params.put("idPartenaire", idPartenaire);
+        params.put("idBoutique", idPartenaire);
         params.put("dateDepart", dateDepart);
+        params.put("status", status);
+        System.out.println("le id: "+idPartenaire+" la date: "+dateDepart+" status: "+status);
         //
         try{
-            List<Ticket> l = Ticket.list("idPartenaire =:idPartenaire and dateDepart =: dateDepart",params);
+            List<Ticket> l = Ticket.list("idBoutique =:idBoutique and dateDepart =: dateDepart and status =: status",params);
+            System.out.println("le longueur: "+l.size()+" ---- ");
             if(!l.isEmpty()){
                 System.out.println(l.size());
                 return Response.ok(l).build();
@@ -59,6 +63,20 @@ public class TicketController {
             return Response.ok(ll).build();
         }
 
+    }
+
+    @GET
+    @Path("details/{idPartenaire}/{unique}")
+    public Response getDetails(@PathParam("idPartenaire") Long idPartenaire,
+                               @PathParam("unique") String unique_code) {
+        //
+        Map<String, Object> params = new HashMap<>();
+        params.put("idBoutique", idPartenaire);
+        params.put("unique_code", unique_code);
+        System.out.println("le id: "+idPartenaire+" la unique_code: "+unique_code+"");
+        //
+        Ticket ticket = Ticket.find("idBoutique =:idBoutique and unique_code =: unique_code",params).firstResult();
+        return Response.ok(ticket).build();
     }
 
     @POST

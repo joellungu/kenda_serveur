@@ -14,7 +14,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -46,10 +48,9 @@ public class PartenaireController {
     }
 
     @PUT
-    @Path("/{id}")
     @Transactional
-    public Partenaire update(@PathParam("id") Long id, Partenaire partenaire) {
-        Partenaire entity = Partenaire.findById(id);
+    public Partenaire update(Partenaire partenaire) {
+        Partenaire entity = Partenaire.findById(partenaire.id);
         if(entity == null) {
             throw new NotFoundException();
         }
@@ -63,7 +64,8 @@ public class PartenaireController {
         entity.motdepasse = partenaire.motdepasse;
         entity.categorie = partenaire.categorie;
         entity.status = partenaire.status;
-
+        entity.logo = partenaire.logo;
+        //
         return entity;
     }
 
@@ -72,9 +74,14 @@ public class PartenaireController {
     @Path("/login/{numero}/{password}")
     public Response login(@PathParam("numero") String numero,
                           @PathParam("password") String password) {
+        HashMap params = new HashMap();
+        //
+        params.put("telephone",numero);
+        params.put("motdepasse",password);
+        //
         Predicate<Partenaire> p = a -> a.motdepasse.equals(password) && a.telephone.equals(numero);
-        List<Partenaire> partenaires = Partenaire.listAll();
-        Partenaire agent = partenaires.stream().filter(p).findFirst().get();
+        Optional agent = Partenaire.list("telephone =:telephone and motdepasse =:motdepasse ",params).stream().findFirst();
+        //Partenaire agent = partenaires.get(0)
         try{
             return Response.ok(agent).build();
         }catch (Exception ex){

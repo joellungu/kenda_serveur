@@ -3,6 +3,7 @@ package org.kenda.controllers;
 import org.kenda.models.agents.Agent;
 import org.kenda.models.courses.Course;
 import org.kenda.models.itinerance.Itinerances;
+import org.kenda.models.partenaires.Partenaire;
 import org.kenda.models.transon.Tronson;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class ItineranceController {
     @Path("all/{depart}/{arrive}")
     public List<HashMap<String, Object>> listAll(@PathParam("depart") String depart,
                                                 @PathParam("arrive") String arrive) {
-        if(depart.equals("Kinshasa")){
+        if(depart.toLowerCase().equals("Kinshasa".toLowerCase()) ){
             return itinerance.getListeDesArrets1(arrive);
         }else if(depart.equals("")){
             return itinerance.listeKinshasaGoma();
@@ -153,6 +154,9 @@ public class ItineranceController {
         Map<String, Object> params = new HashMap<>();
         params.put("adLieu",adLieu);
         params.put("aaLieu",aaLieu);
+        //
+        System.out.println("adLieu : "+adLieu);
+        System.out.println("aaLieu : "+aaLieu);
 
         List<Tronson> tronsons = Tronson.find("adLieu = :adLieu and aaLieu = :aaLieu",params).list();
 
@@ -168,7 +172,11 @@ public class ItineranceController {
             Course course = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).firstResult();
             if(course != null){
                 course.prix = t.prix;
-                l.add(course);
+                Partenaire partenaire = Partenaire.findById(course.idPartenaire);
+                if(partenaire != null && partenaire.status == 1){
+                    l.add(course);
+                }
+
             }
             //
         }
