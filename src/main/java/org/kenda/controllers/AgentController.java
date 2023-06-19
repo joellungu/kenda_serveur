@@ -6,6 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -45,8 +46,20 @@ public class AgentController {
     @POST
     @Transactional
     public Response create(Agent agent) {
-        agent.persist();
-        return Response.created(URI.create("/persons/" + agent.id)).build();
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("numero",agent.numero);
+
+        Agent utilisater = Agent.find("numero =:numero ",params).firstResult();
+        if(utilisater == null){
+            agent.persist();
+            return Response.ok(agent).build();
+        }else{
+            return Response.status(405).entity("Ce numéro exist déjà veuillez-vous connecter.").build();
+        }
+
+        //agent.persist();
+        //return Response.created(URI.create("/persons/" + agent.id)).build();
     }
 
     @PUT

@@ -22,8 +22,14 @@ public class ArretController {
 
     @GET
     @Path("/{id}")
-    public Arret get(Long id) {
+    public Arret getRoute(@PathParam("id") Long id) {
         return Arret.findById(id);
+    }
+
+    @GET
+    @Path("/route/{route}")
+    public List<Arret> getAllRouteBy(@PathParam("route") String route) {
+        return Arret.list("route",route);
     }
 
     @POST
@@ -44,7 +50,7 @@ public class ArretController {
 
         // map all fields from the person parameter to the existing entity
         //entity.name = person.name;
-        entity.update(arret);
+        //entity.update(arret);
         return entity;
     }
 

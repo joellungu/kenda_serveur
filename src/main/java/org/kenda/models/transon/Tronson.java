@@ -16,19 +16,15 @@ import java.util.List;
 public class Tronson extends PanacheEntity {
 
     public Long idPartenaire;
-
     public String nom;
-
     public String aaProvince;
     public String aaLieu;
     @Column(columnDefinition = "integer default 1")
     public double aaLatitude;
     @Column(columnDefinition = "integer default 1")
     public double aaLongitude;
-
     public String adProvince;
     public String adLieu;
-
     @Column(columnDefinition = "float8 default 1")
     public double adLatitude;
     @Column(columnDefinition = "float8 default 1")

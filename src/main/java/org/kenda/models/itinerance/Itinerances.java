@@ -8,6 +8,7 @@ import org.kenda.models.arrets.Arret;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.Entity;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,6 @@ import java.util.List;
 @ApplicationScoped
 public class Itinerances {
     List<String> l = new LinkedList<>();
-
     List<HashMap<String,Object>> listeArrets = new LinkedList<>();
     /*
     Kinshasa,
@@ -217,19 +217,21 @@ Moanda,
 
     public void addArretKnKc(){
         List<Arret> liste = new LinkedList<>();
-        liste.add(new Arret("Kinshasa","Kinshasa",14,14,1));
-        liste.add(new Arret("Kasangulu","Kongo-Central",14,14,1));
-        liste.add(new Arret("Madimba","Kongo-Central",14,14,1));
-        liste.add(new Arret("Kisantu","Kongo-Central",14,14,1));
-        liste.add(new Arret("Mbanza-Ngungu","Kongo-Central",14,14,1));
-        liste.add(new Arret("Lukala","Kongo-Central",14,14,1));
-        liste.add(new Arret("Kimpese","Kongo-Central",14,14,1));
-        liste.add(new Arret("Kula","Kongo-Central",14,14,1));
-        liste.add(new Arret("Songololo","Kongo-Central",14,14,1));
-        liste.add(new Arret("Lufu","Kongo-Central",14,14,1));
-        liste.add(new Arret("Matadi","Kongo-Central",14,14,1));
-        liste.add(new Arret("Boma","Kongo-Central",14,14,1));
-        liste.add(new Arret("Moanda","Kongo-Central",14,14,1));
+        //
+        liste.add(new Arret("Moanda","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Boma","N°1", Arrays.asList(),true));
+        liste.add(new Arret("Matadi","N°1", Arrays.asList(),true));
+        liste.add(new Arret("Lufu","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Songololo","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kula","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kimpese","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Lukala","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Mbanza-Ngungu","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kisantu","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Madimba","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kasangulu","N°1", Arrays.asList(),false));
+        //
+        liste.add(new Arret("Kinshasa","N°1", Arrays.asList(),true));
         //
         liste.forEach((a)->{
             a.persist();
@@ -240,16 +242,16 @@ Moanda,
     //
     public void addArretKnBdd(){
         List<Arret> liste = new LinkedList<>();
-        liste.add(new Arret("Kinshasa","Kinshasa",14,14,1));
-        liste.add(new Arret("Bita","Bandundu",14,14,1));
-        liste.add(new Arret("Pema","Bandundu",14,14,1));
-        liste.add(new Arret("Mbankana","Bandundu",14,14,1));
-        liste.add(new Arret("Mongata","Bandundu",14,14,1));
-        liste.add(new Arret("Kwango","Bandundu",14,14,1));
-        liste.add(new Arret("Mayamba","Bandundu",14,14,1));
-        liste.add(new Arret("Kenge","Bandundu",14,14,1));
-        liste.add(new Arret("Masi Manimba","Bandundu",14,14,1));
-        liste.add(new Arret("Kikwit","Bandundu",14,14,1));
+        //liste.add(new Arret("Kinshasa","Kinshasa",14,14,1));
+        liste.add(new Arret("Bita","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Pema","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Mbankana","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Mongata","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kwango","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Mayamba","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kenge","N°1", Arrays.asList(),true));
+        liste.add(new Arret("Masi Manimba","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kikwit","N°1", Arrays.asList(),true));
         //
         liste.forEach((a)->{
             a.persist();
@@ -260,13 +262,13 @@ Moanda,
 
     public void addArretBddKsi(){
         List<Arret> liste = new LinkedList<>();
-        liste.add(new Arret("Kikwit","Bandundu",14,14,1));
-        liste.add(new Arret("Luano","Kasai",14,14,1));
-        liste.add(new Arret("Mukedi","Kasai",14,14,1));
-        liste.add(new Arret("Pulu","Kasai",14,14,1));
-        liste.add(new Arret("Komba","Kasai",14,14,1));
-        liste.add(new Arret("Holo","Kasai",14,14,1));
-        liste.add(new Arret("Tshikapa","Kasai",14,14,1));
+        //liste.add(new Arret("Kikwit","N°1", Arrays.asList(),true));
+        liste.add(new Arret("Luano","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Mukedi","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Pulu","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Komba","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Holo","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Tshikapa","N°1", Arrays.asList(),true));
         //liste.add(new Arret("Kenge","Kasai",14,14,1));
         //liste.add(new Arret("Masi Manimba","Kasai",14,14,1));
         //liste.add(new Arret("Kikwit","Kasai",14,14,1));
@@ -280,16 +282,15 @@ Moanda,
 
     public void addArretKsiKtn(){
         List<Arret> liste = new LinkedList<>();
-        liste.add(new Arret("Tshikapa","Kasai",14,14,1));
-        liste.add(new Arret("Kananga","Katanga",14,14,1));
-        liste.add(new Arret("Mbuji Mayi","Katanga",14,14,1));
-        liste.add(new Arret("Ngandajika","Katanga",14,14,1));
-        liste.add(new Arret("Mwene Ditu","Katanga",14,14,1));
-        liste.add(new Arret("Kamina","Katanga",14,14,1));
-        liste.add(new Arret("Bukama","Katanga",14,14,1));
-        liste.add(new Arret("Likasa","Katanga",14,14,1));
-        //liste.add(new Arret("Masi Manimba","Katanga",14,14,1));
-        liste.add(new Arret("Lubumbashi","Katanga",14,14,1));
+        //liste.add(new Arret("Tshikapa","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kananga","N°1", Arrays.asList(),true));
+        liste.add(new Arret("Mbuji Mayi","N°1", Arrays.asList(),true));
+        liste.add(new Arret("Ngandajika","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Mwene Ditu","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Kamina","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Bukama","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Likasa","N°1", Arrays.asList(),false));
+        liste.add(new Arret("Lubumbashi","N°1", Arrays.asList(),true));
         //
         liste.forEach((a)->{
             a.persist();
