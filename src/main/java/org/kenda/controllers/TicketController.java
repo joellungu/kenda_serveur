@@ -29,6 +29,12 @@ public class TicketController {
     }
 
     @GET
+    @Path("all")
+    public List<Ticket> getlistAll() {
+        return Ticket.listAll();
+    }
+
+    @GET
     @Path("/{id}")
     public Ticket get(Long id) {
         return Ticket.findById(id);

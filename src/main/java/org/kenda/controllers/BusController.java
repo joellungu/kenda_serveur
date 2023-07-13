@@ -60,6 +60,7 @@ public class BusController {
         bus1.caracteristiques = bus.caracteristiques;
         bus1.kilometrage = bus.kilometrage;
         bus1.climatisation = bus.climatisation;
+        bus1.numeroPlaque = bus.numeroPlaque;
         bus1.logo = bus.logo;
 
 

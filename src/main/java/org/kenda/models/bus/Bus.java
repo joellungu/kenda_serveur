@@ -24,6 +24,7 @@ public class Bus extends PanacheEntity {
     public Timestamp dateMiseenservice;
     public int capacite;
     public String caracteristiques;
+    public String numeroPlaque;
     public int kilometrage;
     public Boolean climatisation;
     public byte[] logo;

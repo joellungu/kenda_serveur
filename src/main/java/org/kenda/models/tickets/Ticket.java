@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,7 @@ public class Ticket extends PanacheEntity {
     public Long idBoutique;
     public String dateDepart;
     public String heureDepart;
+    public HashMap infoPersonnel;
     //////////////////////////////////////////////////////////////////////////////////////////
 
     public static List<Ticket> findTicket(Long idPartenaire){

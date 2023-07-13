@@ -80,10 +80,10 @@ public class PartenaireController {
         params.put("motdepasse",password);
         //
         Predicate<Partenaire> p = a -> a.motdepasse.equals(password) && a.telephone.equals(numero);
-        Optional agent = Partenaire.list("telephone =:telephone and motdepasse =:motdepasse ",params).stream().findFirst();
+        Optional partenaires = Partenaire.list("telephone =:telephone and motdepasse =:motdepasse ",params).stream().findFirst();
         //Partenaire agent = partenaires.get(0)
         try{
-            return Response.ok(agent).build();
+            return Response.ok(partenaires).build();
         }catch (Exception ex){
             return Response.serverError().build();
         }
