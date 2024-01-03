@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kenda.models.Connexion;
-import org.kenda.models.partenaires.Partenaire;
+import org.kenda.models.Companie.Companie;
 import redis.clients.jedis.Jedis;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -16,14 +16,14 @@ public class PartenaireMetier {
 
     ObjectMapper obj = new ObjectMapper();
     Jedis jedis = Connexion.jedis;
-    public String addPartenaire(Partenaire partenaire) throws JsonProcessingException {
+    public String addPartenaire(Companie partenaire) throws JsonProcessingException {
         partenaire.id = UUID.randomUUID().node();
         String part = obj.writeValueAsString(partenaire);
         jedis.sadd("partenaires", partenaire.id+"");//Pour avoir la liste des partenaires plus tard.
         return jedis.set(partenaire.id+"", part);
     }
 
-    public String upDatePartenaire(Partenaire partenaire) throws JsonProcessingException {
+    public String upDatePartenaire(Companie partenaire) throws JsonProcessingException {
         //partenaire.id = UUID.randomUUID().node();
 
         //
@@ -31,7 +31,7 @@ public class PartenaireMetier {
         //
         JsonNode jsonNode = obj.readTree(part);
         Long id = Long.getLong(jsonNode.get("id").asText());
-        Partenaire p = new Partenaire();
+        Companie p = new Companie();
         if(id.equals(partenaire.id)){
             String pa = obj.writeValueAsString(partenaire);
             return jedis.set(partenaire.id+"", pa);
@@ -45,9 +45,9 @@ public class PartenaireMetier {
         return partenaires;
     }
 
-    public Partenaire getPartenaire(String id) throws JsonProcessingException {
+    public Companie getPartenaire(String id) throws JsonProcessingException {
         String contenu = jedis.get(id);
-        Partenaire partenaire = obj.readValue(contenu, Partenaire.class);
+        Companie partenaire = obj.readValue(contenu, Companie.class);
         return partenaire;
     }
 }

@@ -11,9 +11,8 @@ public class Utilisateur extends PanacheEntity {
     public Long id;
     public String nom;
     public String numero;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     public Timestamp datenaissance;
-
     public Long getId() {
         return id;
     }

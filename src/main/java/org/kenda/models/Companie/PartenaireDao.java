@@ -1,4 +1,4 @@
-package org.kenda.models.partenaires;
+package org.kenda.models.Companie;
 
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -26,9 +26,9 @@ public interface PartenaireDao {
     void insertNamed(@Bind("id") int id, @Bind("name") String name);
 
     @SqlUpdate("INSERT INTO course (id, \"name\") VALUES (:id, :name)")
-    void insertBean(@BindBean Partenaire course);
+    void insertBean(@BindBean Companie course);
 
     @SqlQuery("SELECT * FROM course ORDER BY \"name\"")
-    @RegisterBeanMapper(Partenaire.class)
-    List<Partenaire> listCourses();
+    @RegisterBeanMapper(Companie.class)
+    List<Companie> listCourses();
 }

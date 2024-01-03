@@ -16,8 +16,11 @@ import java.util.List;
 
 @Entity
 public class Ticket extends PanacheEntity {
+
+    public Long idCourse;
     public String itinerance;
     public long idAgent;
+    public String idAgentVendeur;
     public String datePaiement;
     public int emplacement;
     public int status;

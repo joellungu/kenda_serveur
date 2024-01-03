@@ -1,9 +1,8 @@
 package org.kenda.controllers;
 
-import org.kenda.models.agents.Agent;
 import org.kenda.models.courses.Course;
 import org.kenda.models.itinerance.Itinerances;
-import org.kenda.models.partenaires.Partenaire;
+import org.kenda.models.Companie.Companie;
 import org.kenda.models.transon.Tronson;
 
 import javax.inject.Inject;
@@ -155,6 +154,53 @@ public class ItineranceController {
         params.put("adLieu",adLieu);
         params.put("aaLieu",aaLieu);
         //
+        System.out.println("adLieu : "+adLieu);//adresse départ
+        System.out.println("aaLieu : "+aaLieu);//adresse arrivée
+
+        List<Tronson> tronsons = Tronson.find("adLieu = :adLieu and aaLieu = :aaLieu",params).list();
+
+        System.out.println("tronsons : "+tronsons.size());//tronsons
+
+
+        List<Course> l = new LinkedList<>();
+        //Ticket//yyyy-MM-dd
+        //
+        for (Tronson t : tronsons){
+            System.out.println("tronson : "+t.nom);//
+            Map<String, Object> params2 = new HashMap<>();
+            params2.put("troncons",t.nom);
+            params2.put("jourDepart",jour);
+            params2.put("idPartenaire",t.idPartenaire);//Le tronson de chaque entreprise
+
+            List<Course> courses = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).list();
+            //.firstResult()
+            for (Course course : courses) {
+                if (course != null) {
+                    course.prix = t.prix;
+                    Companie partenaire = Companie.findById(course.idPartenaire);
+                    if (partenaire != null && partenaire.status == 1) {
+                        l.add(course);
+                    }
+
+                }
+            }
+            //
+        }
+        //
+        return l;
+    }
+
+    @GET
+    @Path("tronson/{adLieu}/{aaLieu}/{jour}/{idPartenaire}")
+    public List<Course> getTronsonsCourseCompanie(
+            @PathParam("adLieu") String adLieu,
+            @PathParam("aaLieu") String aaLieu,
+            @PathParam("jour") int jour,
+            @PathParam("idPartenaire") long idPartenaire){
+        Map<String, Object> params = new HashMap<>();
+        params.put("adLieu",adLieu);
+        params.put("aaLieu",aaLieu);
+        //
         System.out.println("adLieu : "+adLieu);
         System.out.println("aaLieu : "+aaLieu);
 
@@ -167,18 +213,18 @@ public class ItineranceController {
             Map<String, Object> params2 = new HashMap<>();
             params2.put("troncons",t.nom);
             params2.put("jourDepart",jour);
-            params2.put("idPartenaire",t.idPartenaire);
+            params2.put("idPartenaire", idPartenaire);
 
-            Course course = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).firstResult();
-            if(course != null){
-                course.prix = t.prix;
-                Partenaire partenaire = Partenaire.findById(course.idPartenaire);
-                if(partenaire != null && partenaire.status == 1){
-                    l.add(course);
+            List<Course> courses = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).list();
+            for (Course course : courses) {
+                if(course != null) {
+                    course.prix = t.prix;
+                    Companie partenaire = Companie.findById(course.idPartenaire);
+                    if (partenaire != null && partenaire.status == 1) {
+                        l.add(course);
+                    }
                 }
-
             }
-            //
         }
         //
         return l;
@@ -188,6 +234,9 @@ public class ItineranceController {
     @Transactional
     public void addRoute() {
         itinerance.addArretKnKc();
+        itinerance.addArretKnBdd();
+        itinerance.addArretBddKsi();
+        itinerance.addArretKsiKtn();
     }
 
 }

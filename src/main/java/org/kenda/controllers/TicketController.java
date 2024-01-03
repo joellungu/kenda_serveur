@@ -40,19 +40,21 @@ public class TicketController {
         return Ticket.findById(id);
     }
     @GET
-    @Path("horaire/{idPartenaire}/{dateDepart}/{status}")
-    public Response getHoraire(@PathParam("idPartenaire") Long idPartenaire,
+    @Path("horaire/{idCourse}/{idPartenaire}/{dateDepart}/{status}")
+    public Response getHoraire(@PathParam("idCourse") Long idCourse,
+                               @PathParam("idPartenaire") Long idPartenaire,
                              @PathParam("dateDepart") String dateDepart,
                                @PathParam("status") int status) {
         //
         Map<String, Object> params = new HashMap<>();
+        params.put("idCourse", idCourse);
         params.put("idBoutique", idPartenaire);
         params.put("dateDepart", dateDepart);
         //params.put("status", status);//and status =: status
         System.out.println("le id: "+idPartenaire+" la date: "+dateDepart+" status: "+status);
         //
         try{
-            List<Ticket> l = Ticket.list("idBoutique =:idBoutique and dateDepart =: dateDepart",params);
+            List<Ticket> l = Ticket.list("idBoutique =:idBoutique and dateDepart =: dateDepart and idCourse =: idCourse",params);
             System.out.println("le longueur: "+l.size()+" ---- ");
             if(!l.isEmpty()){
                 List<Ticket> lFinal = new LinkedList<>();
@@ -131,7 +133,38 @@ public class TicketController {
             //
             String[] d = c.dateDepart.split("-");
             String da = d[1]+"-"+d[2];
+            System.out.println("la ida: "+dateDepart+" la da: "+da+"");
             if(da.equals(dateDepart)){
+                ts.add(c);
+            }
+        });
+        //
+        return Response.ok(ts).build();
+    }
+
+    @GET
+    @Path("courseday/{idPartenaire}/{date}")
+    public Response getCourseOfDay(@PathParam("idPartenaire") Long idPartenaire,
+                              @PathParam("date") String dateDepart) {
+        //
+        System.out.println("Le id: "+idPartenaire+"  == le date: "+dateDepart);
+        //
+        Map<String, Object> params = new HashMap<>();
+        params.put("idBoutique", idPartenaire);
+        //params.put("dateDepart", dateDepart);
+        //params.put("status", 1);//and status =: status
+        System.out.println("le id: "+idPartenaire+" la unique_code: "+dateDepart+"");
+        //
+        //
+        List<Ticket> ts = new LinkedList<>();
+        List<Ticket> tickets = Ticket.find("idBoutique =:idBoutique",params).list();
+        //
+        tickets.forEach((c)->{
+            //
+            String[] d = c.dateDepart.split("-");
+            String da = d[1]+"-"+d[2];
+            System.out.println("la ida: "+dateDepart+" la da: "+da+"");
+            if(c.dateDepart.equals(dateDepart)){
                 ts.add(c);
             }
         });

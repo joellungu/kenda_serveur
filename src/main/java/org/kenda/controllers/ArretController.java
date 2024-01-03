@@ -21,6 +21,12 @@ public class ArretController {
     }
 
     @GET
+    @Path("all")
+    public List<Arret> getAllList() {
+        return Arret.listAll();
+    }
+
+    @GET
     @Path("/{id}")
     public Arret getRoute(@PathParam("id") Long id) {
         return Arret.findById(id);

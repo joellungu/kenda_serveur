@@ -9,7 +9,7 @@ import org.kenda.models.arrets.ArretDao;
 import org.kenda.models.bus.BusDao;
 import org.kenda.models.courses.CourseDao;
 import org.kenda.models.entretiens.EntretienDao;
-import org.kenda.models.partenaires.PartenaireDao;
+import org.kenda.models.Companie.PartenaireDao;
 import org.kenda.models.tickets.TicketDao;
 import org.kenda.models.trajets.TrajetDao;
 import org.kenda.models.utilisateurs.UtilisateurDao;

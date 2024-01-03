@@ -1,8 +1,6 @@
 package org.kenda.controllers;
 
-import org.kenda.models.agents.Agent;
 import org.kenda.models.bus.Bus;
-import org.kenda.models.partenaires.Partenaire;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.*;

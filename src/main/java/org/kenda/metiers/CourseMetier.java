@@ -1,16 +1,11 @@
 package org.kenda.metiers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.kenda.models.Connexion;
 import org.kenda.models.courses.Course;
 import org.kenda.models.courses.CourseDao;
-import org.kenda.models.partenaires.Partenaire;
-import redis.clients.jedis.Jedis;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.sql.Date;
