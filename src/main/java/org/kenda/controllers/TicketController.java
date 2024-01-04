@@ -95,6 +95,20 @@ public class TicketController {
     }
 
     @GET
+    @Path("ticketvendupar/{idAgentVendeur}/{datePaiement}")
+    public Response getTicketVenduPar(@PathParam("idAgentVendeur") String idAgentVendeur,
+                               @PathParam("datePaiement") String datePaiement) {
+        //
+        Map<String, Object> params = new HashMap<>();
+        params.put("idAgentVendeur", idAgentVendeur);
+        params.put("datePaiement", datePaiement);
+        System.out.println("le idAgentVendeur: "+idAgentVendeur+" la datePaiement: "+datePaiement+"");
+        //
+        List<Ticket> tickets = Ticket.find("idAgentVendeur =:idAgentVendeur and datePaiement =: datePaiement",params).list();
+        return Response.ok(tickets).build();
+    }
+
+    @GET
     @Path("recherche/{idPartenaire}/{phone}/{dateDepart}")
     public Response getRecherche(@PathParam("idPartenaire") Long idPartenaire,
                                @PathParam("phone") String phone,

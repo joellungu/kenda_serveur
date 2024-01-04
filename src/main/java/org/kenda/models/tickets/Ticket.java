@@ -23,6 +23,7 @@ public class Ticket extends PanacheEntity {
     public String idAgentVendeur;
     public String datePaiement;
     public int emplacement;
+
     public int status;
 
     public double prix;
