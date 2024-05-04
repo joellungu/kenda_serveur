@@ -171,8 +171,9 @@ public class ItineranceController {
             params2.put("troncons",t.nom);
             params2.put("jourDepart",jour);
             params2.put("idPartenaire",t.idPartenaire);//Le tronson de chaque entreprise
+            params2.put("status", 0);
 
-            List<Course> courses = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).list();
+            List<Course> courses = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire and status = :status", params2).list();
             //.firstResult()
             for (Course course : courses) {
                 if (course != null) {
@@ -181,7 +182,6 @@ public class ItineranceController {
                     if (partenaire != null && partenaire.status == 1) {
                         l.add(course);
                     }
-
                 }
             }
             //
@@ -214,6 +214,7 @@ public class ItineranceController {
             params2.put("troncons",t.nom);
             params2.put("jourDepart",jour);
             params2.put("idPartenaire", idPartenaire);
+
 
             List<Course> courses = Course.find("troncons = :troncons and jourDepart = :jourDepart and idPartenaire = :idPartenaire", params2).list();
             for (Course course : courses) {

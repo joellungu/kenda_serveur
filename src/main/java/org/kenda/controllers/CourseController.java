@@ -163,8 +163,9 @@ public class CourseController {
     @PUT
     @Path("/suspendre/{id}")
     @Transactional
-    public Course updateSuspendre(@PathParam("id") Long id, short status) {
+    public Course updateStatus(@PathParam("id") Long id, @QueryParam("status") int status) {
         Course entity = Course.findById(id);
+        System.out.println("Le status vaut: "+status);
         if(entity == null) {
             throw new NotFoundException();
         }

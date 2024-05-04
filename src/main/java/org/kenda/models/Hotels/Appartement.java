@@ -10,7 +10,8 @@ public class Appartement extends PanacheEntity {
     public double prix;
     public String devise;
     public Boolean status;
-    public int niveau;
+    public int categorie;
+
     public String numero;
     public int piece;
     public String typeLocation;
@@ -18,7 +19,7 @@ public class Appartement extends PanacheEntity {
     public boolean internet;
     public boolean decodeur;
 
-    public String descriptio;
+    public String description;
 
     public byte[] photo;
 

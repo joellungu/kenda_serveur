@@ -165,14 +165,14 @@ public class TicketController {
         //
         Map<String, Object> params = new HashMap<>();
         params.put("idBoutique", idPartenaire);
-        //params.put("dateDepart", dateDepart);
+        params.put("dateDepart", dateDepart);
         //params.put("status", 1);//and status =: status
         System.out.println("le id: "+idPartenaire+" la unique_code: "+dateDepart+"");
         //
         //
         List<Ticket> ts = new LinkedList<>();
-        List<Ticket> tickets = Ticket.find("idBoutique =:idBoutique",params).list();
-        //
+        List<Ticket> tickets = Ticket.find("idBoutique =:idBoutique and dateDepart =: dateDepart",params).list();
+        /*
         tickets.forEach((c)->{
             //
             String[] d = c.dateDepart.split("-");
@@ -182,8 +182,8 @@ public class TicketController {
                 ts.add(c);
             }
         });
-        //
-        return Response.ok(ts).build();
+        */
+        return Response.ok(tickets).build();
     }
 
     @POST

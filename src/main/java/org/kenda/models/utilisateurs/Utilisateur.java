@@ -8,40 +8,11 @@ import java.sql.Timestamp;
 
 @Entity
 public class Utilisateur extends PanacheEntity {
-    public Long id;
-    public String nom;
-    public String numero;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    public Timestamp datenaissance;
-    public Long getId() {
-        return id;
-    }
+    public String noms;
+    public String genre;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String telephone;
 
-    public String getNom() {
-        return nom;
-    }
+    public String fbToken;
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public Timestamp getDatenaissance() {
-        return datenaissance;
-    }
-
-    public void setDatenaissance(Timestamp datenaissance) {
-        this.datenaissance = datenaissance;
-    }
 }

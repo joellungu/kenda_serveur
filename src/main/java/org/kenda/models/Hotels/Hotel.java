@@ -20,6 +20,7 @@ public class Hotel extends PanacheEntity {
     public String idnat;
     public String numeroImpot;
     public String provinceSiege;
+    public String ville;
     public String typeEtablissement;
     public byte[] photo;
     public int status;

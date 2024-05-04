@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,22 +27,22 @@ public class PaiementController {
         String dev = devise.equals("USD") ? "USD":"CDF";
         double montant = conversion(m,1L, devise.equals("USD"));
         System.out.println("la devise: $"+dev+" lE MONTANT: $"+montant);
-        String urlPost = "http://41.243.7.46:3006/api/rest/v1/paymentService";
+        String urlPost = "https://beta-backend.flexpay.cd/api/rest/v1/paymentService";
         //////////////////http://41.243.7.46:3006/api/rest/v1/paymentService
         //flexpay
         String body = "{\n" +
-                "  \"merchant\":\"JOSBARK\"," +
+                "  \"merchant\":\"KACHIDI_BINARY\"," +
                 "  \"type\":1," +
                 "  \"reference\": \""+reference+"\"," +
                 "  \"phone\": \""+telephone+"\"," +
-                "  \"amount\": \""+montant+"\"," +
+                "  \"amount\": \""+m+"\"," +
                 "  \"currency\":\""+devise+"\"," +
                 "  \"callbackUrl\":\"http://dgc-epst.uc.r.appspot.com\"" +
                 "}";
         var requete = HttpRequest.newBuilder()
                 .uri(URI.create(urlPost))
                 .header("Content-Type","application/json")
-                .header("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcL2xvZ2luIiwicm9sZXMiOlsiTUVSQ0hBTlQiXSwiZXhwIjoxNzQ2MTg5MDk2LCJzdWIiOiJlYWVjMjJmYjIzZDRmYzIxYjc1ZmViZTdjYThjNmEyOSJ9.V36-U2YBmK5WuIR2jz6fMIt6VcsGzdn_38205UygYT8")
+                .header("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcL2xvZ2luIiwicm9sZXMiOlsiTUVSQ0hBTlQiXSwiZXhwIjoxNzc3NTQzNDc3LCJzdWIiOiI1YzFhMWM5NjQwMGFkODBkMGVlMmU5OWY0NDlhYjYwZiJ9.fVwocevB2T-ag46QGxiCqEvBC3zyPCqpgL4vONIlj2w")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
         var client = HttpClient.newHttpClient();
@@ -60,6 +61,48 @@ public class PaiementController {
 
         //return "";
     }
+
+    public String checklancer(String orderNumer) {
+
+        String urlPost = "https://beta-backend.flexpay.cd/api/rest/v1/check/"+orderNumer;
+        //////////////////http://41.243.7.46:3006/api/rest/v1/paymentService
+        /*
+        // flexpay
+        String body = "{\n" +
+                "  \"merchant\":\"KACHIDI_BINARY\"," +
+                "  \"type\":1," +
+                "  \"reference\": \""+reference+"\"," +
+                "  \"phone\": \""+telephone+"\"," +
+                "  \"amount\": \""+m+"\"," +
+                "  \"currency\":\""+devise+"\"," +
+                "  \"callbackUrl\":\"http://dgc-epst.uc.r.appspot.com\"" +
+                "}";
+        */
+        var requete = HttpRequest.newBuilder()
+                .uri(URI.create(urlPost))
+                .header("Content-Type","application/json")
+                .header("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcL2xvZ2luIiwicm9sZXMiOlsiTUVSQ0hBTlQiXSwiZXhwIjoxNzc3NTQzNDc3LCJzdWIiOiI1YzFhMWM5NjQwMGFkODBkMGVlMmU5OWY0NDlhYjYwZiJ9.fVwocevB2T-ag46QGxiCqEvBC3zyPCqpgL4vONIlj2w")
+                .GET()
+                //.POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+        var client = HttpClient.newHttpClient();
+        try {
+            var reponse = client.send(requete, HttpResponse.BodyHandlers.ofString());
+            System.out.println(reponse.statusCode());
+            System.out.println(reponse.body());
+            return reponse.body();
+        } catch (IOException e) {
+            System.out.println(e);
+            return "";
+        } catch (InterruptedException e) {
+            System.out.println(e);
+            return "";
+        }
+
+        //return "";
+    }
+
+
 
     Toolkit toolkit;
     Timer timer;
@@ -117,22 +160,41 @@ public class PaiementController {
         }
     }
 
-    @Path("/paie")
+    @Path("paie")
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String lancerPaiment(Paiement paiement) {
+    public String lancerPaiment(HashMap paiement) {
         //
-        System.out.println("Le montant: "+paiement.amount);
-        System.out.println("Le devise: "+paiement.callbackurl);
-        System.out.println("Le phone: "+paiement.phone);
-        System.out.println("Le montant: ");
 
-        paiement.persist();
+        //System.out.println("Le montant: "+paiement.amount);
+        //System.out.println("Le devise: "+paiement.callbackurl);
+        //System.out.println("Le phone: "+paiement.phone);
+        //System.out.println("Le montant: ");
+
+        //paiement.persist();
         //AnnoyingBeep();
         //
-        return lancer(paiement.currency,paiement.phone,paiement.amount,paiement.reference);
+        return lancer((String) paiement.get("currency"), (String) paiement.get("phone"), (double) paiement.get("amount"), (String)paiement.get("reference"));
+    }
+
+    @Path("check/{orderNumer}")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String checkPaiment(@PathParam("orderNumer") String orderNumer) {
+        //
+
+        //System.out.println("Le montant: "+paiement.amount);
+        //System.out.println("Le devise: "+paiement.callbackurl);
+        //System.out.println("Le phone: "+paiement.phone);
+        //System.out.println("Le montant: ");
+
+        //paiement.persist();
+        //AnnoyingBeep();
+        //
+        return checklancer(orderNumer);
     }
 
     @Path("/devise")
@@ -199,11 +261,15 @@ public class PaiementController {
     //
     private double conversion(Double montant, Long id, Boolean de) {
         Devise devise = Devise.findAll().firstResult();
+        if(devise != null){
+            System.out.println("Taux: "+devise.taux);
+        }
+        double d = devise != null ? devise.taux : 2027;
         double prct = (5 * montant) / 100;
-        if(de){
+        if (de) {
             System.out.println("En dollar: "+de);
-            return (montant + prct) / devise.taux;
-        }else{
+            return (montant + prct) / d;
+        } else {
             System.out.println("En franc: "+de);
             return montant + prct;
         }

@@ -29,17 +29,22 @@ public class AgentController {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{numero}/{password}")
     public Response login(@PathParam("numero") String numero,
                        @PathParam("password") String password) {
         System.out.println("numero: "+numero+" | password: "+password);
-        Predicate<Agent> p = a -> a.password.equals(password) && a.numero.equals(numero);
-        List<Agent> agents = Agent.listAll();
-        Agent agent = agents.stream().filter(p).findFirst().get();
-        try{
+        HashMap params = new HashMap();
+        params.put("numero",numero);
+        params.put("password",password);
+
+        //Predicate<Agent> p = a -> a.password.equals(password) && a.numero.equals(numero);
+        Agent agent = (Agent) Agent.find("numero =: numero and password =: password",params).firstResult();
+        //Agent agent = agents.stream().filter(p).findFirst().get();
+        if (agent != null) {
             return Response.ok(agent).build();
-        }catch (Exception ex){
-            return Response.ok(null).build();
+        } else {
+            return Response.status(404).build();
         }
         //return Agent.findById(id);
     }

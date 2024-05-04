@@ -51,7 +51,8 @@ public class Course extends PanacheEntity {
     public String troncons;
     public int placeDisponible;
     public String reference;
-    public short status;
+
+    public int status;
     public String lieuActuel;
     public Boolean terminer;
     //
