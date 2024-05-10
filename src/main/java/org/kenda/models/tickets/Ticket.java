@@ -33,6 +33,7 @@ public class Ticket extends PanacheEntity {
     public String ref;
     public String unique_code;
     public Long idBoutique;
+    public String nomPartenaire;
     public String dateDepart;
     public String heureDepart;
     public HashMap infoPersonnel;

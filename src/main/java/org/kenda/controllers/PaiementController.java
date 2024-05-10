@@ -35,7 +35,7 @@ public class PaiementController {
                 "  \"type\":1," +
                 "  \"reference\": \""+reference+"\"," +
                 "  \"phone\": \""+telephone+"\"," +
-                "  \"amount\": \""+m+"\"," +
+                "  \"amount\": \""+montant+"\"," +
                 "  \"currency\":\""+devise+"\"," +
                 "  \"callbackUrl\":\"http://dgc-epst.uc.r.appspot.com\"" +
                 "}";
@@ -265,7 +265,7 @@ public class PaiementController {
             System.out.println("Taux: "+devise.taux);
         }
         double d = devise != null ? devise.taux : 2027;
-        double prct = (5 * montant) / 100;
+        double prct = (7 * montant) / 100;
         if (de) {
             System.out.println("En dollar: "+de);
             return (montant + prct) / d;

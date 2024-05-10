@@ -178,8 +178,11 @@ public class ItineranceController {
             for (Course course : courses) {
                 if (course != null) {
                     course.prix = t.prix;
+                    course.bus.logo = new byte[0];
                     Companie partenaire = Companie.findById(course.idPartenaire);
                     if (partenaire != null && partenaire.status == 1) {
+                        Companie companie = Companie.findById(course.idPartenaire);
+                        course.nomPartenaire = companie.nom;
                         l.add(course);
                     }
                 }
@@ -220,6 +223,7 @@ public class ItineranceController {
             for (Course course : courses) {
                 if(course != null) {
                     course.prix = t.prix;
+                    course.bus.logo = new byte[0];
                     Companie partenaire = Companie.findById(course.idPartenaire);
                     if (partenaire != null && partenaire.status == 1) {
                         l.add(course);

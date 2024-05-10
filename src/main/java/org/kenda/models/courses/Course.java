@@ -17,6 +17,8 @@ import java.util.List;
 public class Course extends PanacheEntity {
     //public Long id;
     public Long idPartenaire;
+    //
+    public String nomPartenaire;
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     public String dates;
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
