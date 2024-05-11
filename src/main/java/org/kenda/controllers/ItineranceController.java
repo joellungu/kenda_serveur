@@ -182,7 +182,7 @@ public class ItineranceController {
                     Companie partenaire = Companie.findById(course.idPartenaire);
                     if (partenaire != null && partenaire.status == 1) {
                         Companie companie = Companie.findById(course.idPartenaire);
-                        course.nomPartenaire = companie.nom;
+                        course.nomPartenaire = companie.denomination;
                         l.add(course);
                     }
                 }
