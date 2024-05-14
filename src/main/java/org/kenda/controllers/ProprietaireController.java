@@ -64,6 +64,34 @@ public class ProprietaireController {
         //return Response.created(URI.create("/persons/" + agent.id)).build();
     }
 
+    @PUT
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response mettreajour(Proprietaire proprietaire) {
+
+        //HashMap<String, Object> params = new HashMap<>();
+        //params.put("telephone",proprietaire.telephone);
+
+        Proprietaire proprietaire1 = Proprietaire.findById(proprietaire.id);
+        if(proprietaire1 == null){
+            return Response.status(405).entity("Ce numéro exist déjà veuillez-vous connecter.").build();
+        }
+
+        //
+        proprietaire1.nom = proprietaire.nom;
+        proprietaire1.postnom = proprietaire.postnom;
+        proprietaire1.prenom = proprietaire.prenom;
+        proprietaire1.email = proprietaire.email;
+        proprietaire1.telephone = proprietaire.telephone;
+        proprietaire1.password = proprietaire.password;
+        //
+        return Response.ok().build();
+
+        //agent.persist();
+        //return Response.created(URI.create("/persons/" + agent.id)).build();
+    }
+
+
     @DELETE
     @Path("/{id}")
     @Transactional

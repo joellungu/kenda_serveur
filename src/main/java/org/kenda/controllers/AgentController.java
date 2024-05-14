@@ -71,6 +71,8 @@ public class AgentController {
 
     @PUT
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Agent update(@PathParam("id") Long id, Agent agent) {
         Agent entity = Agent.findById(id);
@@ -89,10 +91,10 @@ public class AgentController {
          entity.role = agent.role;
          entity.roletitre = agent.roletitre;
          entity.actif = agent.actif;
-
-        // map all fields from the person parameter to the existing entity
-        //entity.name = person.name;
-        //entity.update(agent);
+         //
+         // map all fields from the person parameter to the existing entity
+         //entity.name = person.name;
+         //entity.update(agent);
         return entity;
     }
 

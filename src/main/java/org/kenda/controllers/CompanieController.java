@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -21,7 +22,13 @@ public class CompanieController {
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<Companie> list() {
-        return Companie.listAll();
+        List<Companie> l = Companie.listAll();
+        List<Companie> l2 = new LinkedList<>();
+        l.forEach((c) -> {
+            c.photo = new byte[0];
+            l2.add(c);
+        });
+        return l2;
     }
 
     @GET
@@ -29,7 +36,13 @@ public class CompanieController {
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<Companie> listAll() {
-        return Companie.listAll();
+        List<Companie> l = Companie.listAll();
+        List<Companie> l2 = new LinkedList<>();
+        l.forEach((c) -> {
+            c.photo = new byte[0];
+            l2.add(c);
+        });
+        return l2;
     }
 
     @GET
@@ -66,19 +79,14 @@ public class CompanieController {
 
         // map all fields from the person parameter to the existing entity
         //entity.name = person.name;
-        entity.nom = companie.nom;
-        entity.postnom = companie.postnom;
-        entity.prenom = companie.telephone;
-        entity.sexe = companie.email;
-        entity.email = companie.email;
-        entity.telephone = companie.telephone;
+
         entity.denomination = companie.denomination;
         entity.adresseEtablissement = companie.adresseEtablissement;
         entity.rccm = companie.rccm;
         entity.idnat = companie.idnat;
         entity.numeroImpot = companie.numeroImpot;
         entity.provinceSiege = companie.provinceSiege;
-        entity.typeEtablissement = companie.typeEtablissement;
+        //entity.typeEtablissement = companie.typeEtablissement;
         entity.status = companie.status;
         entity.photo =  companie.photo;
         entity.code =  companie.code;
