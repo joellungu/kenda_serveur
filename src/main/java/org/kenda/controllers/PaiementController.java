@@ -1,11 +1,16 @@
 package org.kenda.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kenda.models.CommandeService;
 import org.kenda.models.paiement.Devise;
 import org.kenda.models.paiement.Paiement;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -15,6 +20,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 @Path("/paiement")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -165,18 +171,72 @@ public class PaiementController {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String lancerPaiment(HashMap paiement) {
+    public Response lancerPaiment(CommandeService commandeService
+                                  //HashMap paiement
+    ) throws InterruptedException, JsonProcessingException {
         //
 
         //System.out.println("Le montant: "+paiement.amount);
         //System.out.println("Le devise: "+paiement.callbackurl);
         //System.out.println("Le phone: "+paiement.phone);
         //System.out.println("Le montant: ");
-
+        String reponse = "";
+        Response repData = null;
         //paiement.persist();
         //AnnoyingBeep();
         //
-        return lancer((String) paiement.get("currency"), (String) paiement.get("phone"), (double) paiement.get("amount"), (String)paiement.get("reference"));
+        String rep = lancer(commandeService.currency, commandeService.phone, commandeService.amount, commandeService.reference);
+        ObjectMapper obj = new ObjectMapper();
+        JsonNode jsonNode = obj.readTree(rep);
+        for(int x = 4; x < 5; x++){
+            //
+
+            //jsonNode
+            //rep['orderNumber']
+            JsonNode repCheck = obj.readTree(checklancer(jsonNode.get("orderNumber").asText()));
+            //repCheck["transaction"]['status']
+            if(repCheck.get("transaction").get("status").asText().equals("0") ||
+                    repCheck.get("transaction").get("status").asInt() == (0)){
+                reponse = "Paiement éffectué";
+                commandeService.ticketList.forEach((t)-> t.persist());
+                repData = Response.status(200).entity(reponse).build();
+                break;
+            }
+
+            if(repCheck.get("transaction").get("status").asText().equals("1") ||
+                    repCheck.get("transaction").get("status").asInt() == (1)){
+                reponse = repCheck.get("message").asText();
+                repData = Response.status(404).build();
+                break;
+            }
+
+            if(repCheck.get("transaction").get("status").asText().equals("3") ||
+                    repCheck.get("transaction").get("status").asInt() == (3)){
+                reponse = repCheck.get("message").asText();
+                repData = Response.status(404).build();
+                break;
+            }
+
+            if(repCheck.get("transaction").get("status").asText().equals("4") ||
+                    repCheck.get("transaction").get("status").asInt() == (4)){
+                reponse = repCheck.get("message").asText();
+                repData = Response.status(404).build();
+                break;
+            }
+
+            if(repCheck.get("transaction").get("status").asText().equals("5") ||
+                    repCheck.get("transaction").get("status").asInt() == (5)){
+                reponse = repCheck.get("message").asText();
+                repData = Response.status(404).build();
+                break;
+            }
+
+            System.out.println("La vérification: "+repCheck.asText());
+
+            TimeUnit.SECONDS.sleep(30);
+
+        }
+        return repData;
     }
 
     @Path("check/{orderNumer}")

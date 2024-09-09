@@ -96,8 +96,9 @@ public class CourseController {
         Course course = new Course();
         for (Course c : l2){
             if(!c.terminer && (c.chauffeur.id.equals(idAgent) ||
-                    c.receveur.id.equals(idAgent) || c.embarqueur.id.equals(idAgent)
+                    c.receveur.id.equals(idAgent)
             )){
+                //|| c.embarqueur.id.equals(idAgent)
                 course = c;
                 break;
             }

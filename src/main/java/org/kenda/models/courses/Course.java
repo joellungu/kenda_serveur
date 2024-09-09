@@ -44,8 +44,8 @@ public class Course extends PanacheEntity {
     public Agent chauffeur;
     @OneToOne(cascade = CascadeType.MERGE)
     public Agent receveur;
-    @OneToOne(cascade = CascadeType.MERGE)
-    public Agent embarqueur;
+    //@OneToOne(cascade = CascadeType.MERGE)
+    //public Agent embarqueur;
     @OneToOne(cascade = CascadeType.MERGE)
     public Bus bus;
 
